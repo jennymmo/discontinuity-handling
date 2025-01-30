@@ -45,10 +45,17 @@ This directory contains the fortran source code to run the simulations.
 
 After building, you will have two executables, `run_normal`, which runs a numerical experiment with the regular fixed-step integrators and `run_discontinuity_handling`, which runs an experiment with improved handling of the discontinuities. They both take the same arguments, indicating which dataset to use as input, and which order (order = polynomial degeer + 1) of interpolation to use. For example to run with the data from NorKyst 800, with linear interpolation, use
 
-`  > ./run_normal norkyst800 2`  
+`  > ./run_normal norkyst800 2`
 
 Run the program without any arguments to see the options.
 
+A numerical experiment consists of running the code for:
+* One dataset
+* One order of interpolation
+* Five different integrators
+* 11 different timesteps
+
+To keep the runtime within reason, the shortest timestep is 30 seconds, while timesteps of 10 seconds were used for some cases in the paper. To change this, edit `run_normal.f90` and `run_discontinuity_handling.f90` as needed, the list of timesteps to run is found in the variable `timesteps` in both files.
 
 ## Instructions for using the jupyter notebooks
 
