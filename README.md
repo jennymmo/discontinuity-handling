@@ -33,7 +33,7 @@ This directory contains the fortran source code to run the simulations.
   * netcdf, with fortran interface
   * a recent version of gfortran
 * Go into the build directory (or create your own, somewhere)
-* We use cmake to configure the build, and we need to pass information about the location of the different libraries. The following works for me on xubuntu 18.04 with netcdf installed from apt-get. Adjust the paths to fit your system.
+* We use cmake to configure the build, and we need to pass information about the location of the different libraries. The following works for me on xubuntu 20.04 with netcdf installed from apt-get. Adjust the paths to fit your system.
 * `cmake .. -DBSPLINE_LIBRARY_PATH=bspline_path -DNETCF_LIBRARY_PATH=netcdf_libs -DNETCDF_INCLUDE_DIRS=netcdf_include -DCMAKE_BUILD_TYPE=RELEASE`
   * `bspline_path` should be the folder where `bspline_module.o` and `bspline_module.mod` etc. are found. This depends on where you built bspline-fortran.
   * `netcdf_libs` should be the folder where `libnetcdf.so` and `libnetcdff.so` found. On my system, running xubuntu 18.04 with `libnetcdf-dev` and `libnetcdff-dev` installed from apt-get, these files are found in `/usr/lib/x86_64-linux-gnu`.
