@@ -1,6 +1,6 @@
 program run
 
-use parameters,             only: SP, DP, WP, input_folder
+use parameters,             only: SP, DP, WP, input_folder, timesteps
 use input_module,           only: read_initial_positions
 use currentdata_module,     only: get_current
 use experiment_module,      only: experiment_normal
@@ -20,8 +20,6 @@ real(WP), dimension(:,:,:), allocatable :: u, v
 type(interpolator) :: f
 ! Time
 real(wp) :: t0, tmax
-! List of timesteps to test
-real(WP), dimension(11), parameter :: timesteps = (/ 30, 90, 120, 180, 240, 300, 600, 900, 1200, 1800, 3600 /)
 ! Order of interpolation (comes from command line argument)
 integer :: order
 
