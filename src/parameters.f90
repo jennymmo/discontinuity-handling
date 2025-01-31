@@ -16,6 +16,7 @@ module parameters
     character(len =  12), parameter :: output_folder = '../results/'
 
     ! List of timesteps to test
+    ! This was used for the paper (takes several hours to run through)
     real(WP), dimension(14), parameter :: timesteps = (/10, 20, 30, 60, 90, 120, 180, 240, 300, 600, 900, 1200, 1800, 3600 /)
 
 end module
