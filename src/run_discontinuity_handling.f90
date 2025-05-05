@@ -3,7 +3,6 @@ program run
 use parameters,             only: SP, DP, WP, input_folder, timesteps
 use input_module,           only: read_initial_positions
 use currentdata_module,     only: get_current
-use experiment_module,      only: experiment_normal
 use experiment_module,      only: experiment_discontinuity_handling
 use interpolator_module,    only: interpolator
 use integrator_module,      only: rk4, rk3_kutta, rk3_heun, rk2, rk1

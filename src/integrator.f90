@@ -4,7 +4,7 @@ module integrator_module
 
     implicit none
     private
-    public :: integrate_normal
+    public :: integrate_standard
     public :: integrate_discontinuity_handling
     public :: rk4, rk3_kutta, rk3_heun, rk2, rk1
 
@@ -197,7 +197,7 @@ module integrator_module
     !   Subroutines to integrate ODEs   !
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    subroutine integrate_normal(X, t0, tmax, h0, f, method, Nsteps)
+    subroutine integrate_standard(X, t0, tmax, h0, f, method, Nsteps)
         ! Calculates X(t=tmax) as defined by the ODE x' = f(x, t),
         ! with initial value, X(t=0), given by X at input.
         ! Solution is found by repeatedly calling a fixed-step

@@ -51,13 +51,25 @@ message ("++ BSPLINE_LIBRARY_PATH: ${BSPLINE_LIBRARY_PATH}")
 message ("++ BSPLINE_LIBRARIES:    ${BSPLINE_LIBRARIES}")
 
 #### Program to run all timesteps for one dataset and one order
-add_executable (run_normal "run_normal.f90" ${fortran_modules})
-target_link_libraries (run_normal ${BSPLINE_LIBRARIES})
-target_link_libraries (run_normal ${HDF5_LIBRARIES})
-target_link_libraries (run_normal ${NETCDF_LIBRARIES})
+add_executable (run_standard "run_standard.f90" ${fortran_modules})
+target_link_libraries (run_standard ${BSPLINE_LIBRARIES})
+target_link_libraries (run_standard ${HDF5_LIBRARIES})
+target_link_libraries (run_standard ${NETCDF_LIBRARIES})
 
 #### Program to run all timesteps for one dataset and one order
 add_executable (run_discontinuity_handling "run_discontinuity_handling.f90" ${fortran_modules})
 target_link_libraries (run_discontinuity_handling ${BSPLINE_LIBRARIES})
 target_link_libraries (run_discontinuity_handling ${HDF5_LIBRARIES})
 target_link_libraries (run_discontinuity_handling ${NETCDF_LIBRARIES})
+
+#### Program to run all timesteps for one dataset and one order
+add_executable (run_backwards_standard "run_backwards_nordic4_standard.f90" ${fortran_modules})
+target_link_libraries (run_backwards_standard ${BSPLINE_LIBRARIES})
+target_link_libraries (run_backwards_standard ${HDF5_LIBRARIES})
+target_link_libraries (run_backwards_standard ${NETCDF_LIBRARIES})
+
+#### Program to run all timesteps for one dataset and one order
+add_executable (run_backwards_discontinuity_handling "run_backwards_nordic4_discontinuity_handling.f90" ${fortran_modules})
+target_link_libraries (run_backwards_discontinuity_handling ${BSPLINE_LIBRARIES})
+target_link_libraries (run_backwards_discontinuity_handling ${HDF5_LIBRARIES})
+target_link_libraries (run_backwards_discontinuity_handling ${NETCDF_LIBRARIES})
