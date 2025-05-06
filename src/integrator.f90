@@ -228,14 +228,25 @@ module integrator_module
         h = h0
         Nsteps = 0
         ! Loop over timesteps until t == tmax.
-        do while (t < tmax)
-            ! If remaining time until tmax is smaller than timestep,
-            ! adjust h to stop exactly at tmax.
-            h = min(h, tmax - t)
-            call method(X, t, h, f, ks)
-            ! Count number of steps, for convenient comparison to other methods
-            Nsteps = Nsteps + 1
-        end do
+        if (tmax > t0) then
+            do while (t < tmax)
+                ! Forwards in time
+                ! If remaining time until tmax is smaller than timestep,
+                ! adjust h to stop exactly at tmax.
+                h = min(h, tmax - t)
+                call method(X, t, h, f, ks)
+                Nsteps = Nsteps + 1
+            end do
+        else
+            do while (t > tmax)
+                ! Backwards in time
+                ! If remaining time until tmax is smaller than timestep,
+                ! adjust h to stop exactly at tmax.
+                h = -min(abs(h), abs(tmax - t))
+                call method(X, t, h, f, ks)
+                Nsteps = Nsteps + 1
+            end do
+        endif
     end subroutine
 
     subroutine integrate_discontinuity_handling(X, t0, tmax, h0, f, method, Xref, resolution, Nsteps, callfactor)
@@ -275,15 +286,28 @@ module integrator_module
         t = t0
         Nsteps = 0._DP
         ! Loop over timesteps until t == tmax.
-        do while ( t < tmax)
-            ! If remaining time until tmax is smaller than timestep,
-            ! adjust h to stop exactly at tmax.
-            h = min(h0, tmax-t)
-            ! Here we use a wrapper routine that will call the integrator one or more times
-            ! (depending on boundary crossings)
-            ! in order to complete a step of duration h
-            call onestep_fixed(X, t, h, f, method, Xref, resolution, Nsteps, callfactor)
-        enddo
+        if (tmax > t0) then
+            do while ( t < tmax)
+                ! Forwards in time
+                ! If remaining time until tmax is smaller than timestep,
+                ! adjust h to stop exactly at tmax.
+                h = min(h0, tmax-t)
+                ! Here we use a wrapper routine that will call the integrator one or more times
+                ! (depending on boundary crossings)
+                ! in order to complete a step of duration h
+                call onestep_fixed(X, t, h, f, method, Xref, resolution, Nsteps, callfactor)
+            enddo
+        else
+            do while ( t > tmax)
+                ! Backwards in time
+                ! Check that we do not overstep tmax
+                h = -min(abs(h0), abs(tmax-t))
+                ! Here we use a wrapper routine that will call the integrator one or more times
+                ! (depending on boundary crossings)
+                ! in order to complete a step of duration h
+                call onestep_fixed(X, t, h, f, method, Xref, resolution, Nsteps, callfactor)
+            enddo
+        endif
     end subroutine integrate_discontinuity_handling
 
     recursive subroutine onestep_fixed(X, t, h, f, method, Xref, resolution, Nsteps, callfactor)
